@@ -1,4 +1,4 @@
-[![Priiiyo](https://telegra.ph/file/9f79dea91ab7cda63dc46.jpg)](http://t.me/PriiiyoMirror)
+[![Priiiyo](https://telegra.ph/file/c303c1655b3a7226bc6dc.jpg)](http://t.me/PriiiyoMirror)
 
 # Priiiyo Mirror Bot
 A Telegram bot which can mirror all your links to Google drive! This is the Modified version.
