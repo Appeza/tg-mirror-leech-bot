@@ -1,14 +1,14 @@
 {
-    "name": "priiiyo-mirror-bot ",
+    "name": "MXT-MIRROR-BOT ",
     "description": "A Telegram bot which can mirror all your links to Google drive!",
-    "logo": "https://telegra.ph/file/9f79dea91ab7cda63dc46.jpg",
+    "logo": "https://telegra.ph/file/c303c1655b3a7226bc6dc.jpg",
     "keywords": [
       "bot",
       "telegram",
       "python"
     ],
     "repository": "https://github.com/priiiyo/priiiyo-mirror-bot",
-    "website": "https://t.me/PriiiyoMirror",
+    "website": "https://t.me/Mxtmirrorgroup",
     "success_url": "https://github.com/priiiyo/priiiyo-mirror-bot/blob/master/README.md",
     "stack": "container",
     "env": {
@@ -122,7 +122,7 @@
       },
       "IMAGE_URL": {
         "description": "Show Image/Logo in /start message. Fill value of image your link image, use telegra.ph or any direct link image",
-        "value": "https://telegra.ph/file/db03910496f06094f1f7a.jpg",
+        "value": "https://telegra.ph/file/c303c1655b3a7226bc6dc.jpg",
         "required": false
        },
       "BUTTON_THREE_NAME": {
