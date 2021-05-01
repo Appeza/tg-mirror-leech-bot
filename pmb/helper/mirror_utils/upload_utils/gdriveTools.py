@@ -353,7 +353,7 @@ class GoogleDriveHelper:
                 else:
                     buttons.buildbutton("🗂 𝐃𝐫𝐢𝐯𝐞 𝐋𝐢𝐧𝐤 🗂", durl)
                 try:
-                    msg += f'\n\n<b> 𝐓𝐨𝐭𝐚𝐥 𝐒𝐢𝐳𝐞 📦:</b> {get_readable_file_size(int(meta.get("size")))}\n\n🔥 𝙋𝙧𝙞𝙞𝙞𝙮𝙤 𝙈𝙞𝙧𝙧𝙤𝙧 𝙕𝙤𝙣𝙀\n\n▫️#Uploaded to Drive ✓ \n\n🚫 𝘿𝙤 𝙉𝙤𝙩 𝙎𝙝𝙖𝙧𝙚 𝙄𝙣𝙙𝙚𝙭 𝙇𝙞𝙣𝙠 \n\n✅ 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗯𝘆 : <b>@PriiiyoBOTs</b>'
+                    msg += f'\n\n<b> 𝐓𝐨𝐭𝐚𝐥 𝐒𝐢𝐳𝐞 📦:</b> {get_readable_file_size(int(meta.get("size")))}\n\n🔥 MXT MIRROR ZonE\n\n▫️#Uploaded to Drive ✓ \n\n🚫 𝘿𝙤 𝙉𝙤𝙩 𝙎𝙝𝙖𝙧𝙚 𝙄𝙣𝙙𝙚𝙭 𝙇𝙞𝙣𝙠 \n\n✅ 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗯𝘆 : <b>@ZEUTS</b>'
                 except TypeError:
                     pass
                 if INDEX_URL is not None:
@@ -486,7 +486,7 @@ class GoogleDriveHelper:
             Telegraph(access_token=telegraph_token).edit_page(path = self.path[prev_page],
                                  title = '𝗣𝗥𝗜𝗜𝗜𝗬𝗢 𝗠𝗜𝗥𝗥𝗢𝗥 𝗭𝗢𝗡𝗘',
                                  author_name='👲 𝗨𝗽𝗹𝗼𝗮𝗱 𝗕𝘆',
-                                 author_url='https://t.me/PriiiyoBOTs',
+                                 author_url='https://t.me/Mxtmirrorgroup',
                                  html_content=content)
         return
 
@@ -561,9 +561,9 @@ class GoogleDriveHelper:
 
             for content in self.telegraph_content :
                 self.path.append(Telegraph(access_token=telegraph_token).create_page(
-                                                        title='𝗣𝗥𝗜𝗜𝗜𝗬𝗢 𝗠𝗜𝗥𝗥𝗢𝗥 𝗭𝗢𝗡𝗘',
+                                                        title='MXT MIRROR ZonE',
                                                         author_name='👲 𝗨𝗽𝗹𝗼𝗮𝗱 𝗕𝘆',
-                                                        author_url='https://t.me/PriiiyoBOTs',
+                                                        author_url='https://t.me/Mxtmirrorgroup',
                                                         html_content=content
                                                         )['path'])
 
