@@ -148,9 +148,9 @@ class MirrorListener(listeners.MirrorListeners):
         with download_dict_lock:
             msg = f'<b>🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲 : </b><code>{download_dict[self.uid].name()}</code>\n<b>📦 𝐓𝐨𝐭𝐚𝐥 𝐒𝐢𝐳𝐞 : </b><code>{size}</code>\n' \
                   f' \n' \
-                  f'🔅𝙋𝙧𝙞𝙞𝙞𝙮𝙤 𝙈𝙞𝙧𝙧𝙤𝙧 𝙕𝙤𝙣𝙀\n' \
+                  f'🔅MXT MIRROR ZonE\n' \
                   f' \n' \
-                  f'🔅𝙂𝙧𝙤𝙪𝙥 : @PriiiyoMirror\n'
+                  f'🔅𝙂𝙧𝙤𝙪𝙥 : @Mxtmirrorgroup\n'
             buttons = button_build.ButtonMaker()
             if SHORTENER is not None and SHORTENER_API is not None:
                 surl = requests.get(f'https://{SHORTENER}/api?api={SHORTENER_API}&url={link}&format=text').text
@@ -179,7 +179,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\n<b>👤 𝗨𝗽𝗹𝗼𝗮𝗱𝗲𝗿 : 👉</b> {uname}\n\n▫️#Uploaded To Team Drive ✓ \n\n🚫 𝘿𝙤 𝙉𝙤𝙩 𝙎𝙝𝙖𝙧𝙚 𝙄𝙣𝙙𝙚𝙭 𝙇𝙞𝙣𝙠 \n\n✅ 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗕𝘆 : <b>@PriiiyoBOTs</b>'
+                msg += f'\n\n<b>👤 𝗨𝗽𝗹𝗼𝗮𝗱𝗲𝗿 : 👉</b> {uname}\n\n▫️#Uploaded To Team Drive ✓ \n\n🚫 𝘿𝙤 𝙉𝙤𝙩 𝙎𝙝𝙖𝙧𝙚 𝙄𝙣𝙙𝙚𝙭 𝙇𝙞𝙣𝙠 \n\n✅ 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗕𝘆 : <b>@ZEUTS</b>'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
