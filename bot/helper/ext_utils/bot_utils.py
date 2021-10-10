@@ -29,6 +29,7 @@ class MirrorStatus:
     STATUS_PAUSE = "ᴘᴀᴜꜱᴇᴅ...⭕"
     STATUS_ARCHIVING = "ᴀʀᴄʜɪᴠɪɴɢ...🔐"
     STATUS_EXTRACTING = "ᴇxᴛʀᴀᴄᴛɪɴɢ...📂"
+    STATUS_SPLITTING = "Splitting...✂️"
 
 
 PROGRESS_MAX_SIZE = 100 // 8
@@ -77,6 +78,7 @@ def getDownloadByGid(gid):
                 not in [
                     MirrorStatus.STATUS_ARCHIVING,
                     MirrorStatus.STATUS_EXTRACTING,
+                    MirrorStatus.STATUS_SPLITTING
                 ]
                 and dl.gid() == gid
             ):
@@ -93,6 +95,7 @@ def getAllDownload():
                 not in [
                     MirrorStatus.STATUS_ARCHIVING,
                     MirrorStatus.STATUS_EXTRACTING,
+                    MirrorStatus.STATUS_SPLITTING,
                     MirrorStatus.STATUS_CLONING,
                     MirrorStatus.STATUS_UPLOADING,
                 ]
@@ -186,7 +189,7 @@ def get_readable_message():
         return msg, ""
 
 
-def flip(update, context):
+def turn(update, context):
     query = update.callback_query
     query.answer()
     global COUNT, PAGE_NO
@@ -206,20 +209,6 @@ def flip(update, context):
             PAGE_NO -= 1
     message_utils.update_all_messages()
 
-
-def check_limit(size, limit, tar_unzip_limit=None, is_tar_ext=False):
-    LOGGER.info('Checking File/Folder Size...')
-    if is_tar_ext and tar_unzip_limit is not None:
-        limit = tar_unzip_limit
-    if limit is not None:
-        limit = limit.split(' ', maxsplit=1)
-        limitint = int(limit[0])
-        if 'G' in limit[1] or 'g' in limit[1]:
-            if size > limitint * 1024**3:
-                return True
-        elif 'T' in limit[1] or 't' in limit[1]:
-            if size > limitint * 1024**4:
-                return True
 
 def get_readable_time(seconds: int) -> str:
     result = ''

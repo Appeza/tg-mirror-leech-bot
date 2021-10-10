@@ -16,6 +16,7 @@ def sendMessage(text: str, bot, update: Update):
                             text=text, allow_sending_without_reply=True,  parse_mode='HTMl')
     except Exception as e:
         LOGGER.error(str(e))
+        
 def sendMarkup(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     return bot.send_message(update.message.chat_id,
                             reply_to_message_id=update.message.message_id,
@@ -74,8 +75,8 @@ def update_all_messages():
     if msg is None:
         return
     msg += f"<b>ᴄᴘᴜ:</b> <code>{psutil.cpu_percent()}%</code>" \
-           f" <b>ʀᴀᴍ:</b> <code>{psutil.virtual_memory().percent}%</code>" \
-           f" <b>ᴅɪꜱᴋ:</b> <code>{psutil.disk_usage('/').percent}%</code>"
+            f" <b>ʀᴀᴍ:</b> <code>{psutil.virtual_memory().percent}%</code>" \
+            f" <b>ᴅɪꜱᴋ:</b> <code>{psutil.disk_usage('/').percent}%</code>"
     with download_dict_lock:
         dlspeed_bytes = 0
         uldl_bytes = 0

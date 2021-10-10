@@ -1,16 +1,26 @@
+import threading
+import time
+import psutil, shutil
 from telegram.ext import CommandHandler
-from bot import dispatcher, status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock
+from bot import dispatcher, status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock, botStartTime
 from bot.helper.telegram_helper.message_utils import *
+from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
 from telegram.error import BadRequest
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
-import threading
 
 
 def mirror_status(update, context):
     with download_dict_lock:
         if len(download_dict) == 0:
-            message = "No active downloads"
+            currentTime = get_readable_time(time.time() - botStartTime)
+            total, used, free = shutil.disk_usage('.')
+            free = get_readable_file_size(free)
+            message = 'No Active Downloads !\n___________________________\n'
+            message += f"<b>CPU:</b> {psutil.cpu_percent()}%" \
+                       f" <b>DISK:</b> {psutil.disk_usage('/').percent}%" \
+                       f" <b>RAM:</b> {psutil.virtual_memory().percent}%" \
+                       f"\n<b>FREE:</b> {free} | <b>UPTIME:</b> {currentTime}"
             reply_message = sendMessage(message, context.bot, update)
             threading.Thread(target=auto_delete_message, args=(bot, update.message, reply_message)).start()
             return

@@ -6,6 +6,7 @@ import random
 import string
 import subprocess
 import requests
+import json
 
 import aria2p
 import qbittorrentapi as qba
@@ -49,11 +50,11 @@ load_dotenv('config.env')
 SERVER_PORT = os.environ.get('SERVER_PORT', None)
 PORT = os.environ.get('PORT', SERVER_PORT)
 web = subprocess.Popen([f"gunicorn wserver:start_server --bind 0.0.0.0:{PORT} --worker-class aiohttp.GunicornWebWorker"], shell=True)
-time.sleep(1)
 alive = subprocess.Popen(["python3", "alive.py"])
 subprocess.run(["mkdir", "-p", "qBittorrent/config"])
 subprocess.run(["cp", "qBittorrent.conf", "qBittorrent/config/qBittorrent.conf"])
-subprocess.run(["qbittorrent-nox", "-d", "--profile=."])
+nox = subprocess.Popen(["qbittorrent-nox", "--profile=."])
+time.sleep(1)
 Interval = []
 DRIVES_NAMES = []
 DRIVES_IDS = []
@@ -116,6 +117,8 @@ download_dict = {}
 # Stores list of users and chats the bot is authorized to use in
 AUTHORIZED_CHATS = set()
 SUDO_USERS = set()
+AS_DOC_USERS = set()
+AS_MEDIA_USERS = set()
 if os.path.exists('authorized_chats.txt'):
     with open('authorized_chats.txt', 'r+') as f:
         lines = f.readlines()
@@ -193,11 +196,19 @@ telegraph.create_account(short_name=sname)
 telegraph_token = telegraph.get_access_token()
 
 try:
+    TG_SPLIT_SIZE = getConfig('TG_SPLIT_SIZE')
+    if len(TG_SPLIT_SIZE) == 0 or int(TG_SPLIT_SIZE) > 2097152000:
+        raise KeyError
+    else:
+        TG_SPLIT_SIZE = int(TG_SPLIT_SIZE)
+except KeyError:
+    TG_SPLIT_SIZE = 2097152000
+try:
     STATUS_LIMIT = getConfig('STATUS_LIMIT')
     if len(STATUS_LIMIT) == 0:
         raise KeyError
     else:
-        STATUS_LIMIT = int(getConfig('STATUS_LIMIT'))
+        STATUS_LIMIT = int(STATUS_LIMIT)
 except KeyError:
     STATUS_LIMIT = None
 try:
@@ -247,6 +258,14 @@ try:
         MEGA_LIMIT = None
 except KeyError:
     MEGA_LIMIT = None
+try:
+    ZIP_UNZIP_LIMIT = getConfig('ZIP_UNZIP_LIMIT')
+    if len(ZIP_UNZIP_LIMIT) == 0:
+        raise KeyError
+    else:
+        ZIP_UNZIP_LIMIT = float(ZIP_UNZIP_LIMIT)
+except KeyError:
+    ZIP_UNZIP_LIMIT = None
 try:
     TAR_UNZIP_LIMIT = getConfig('TAR_UNZIP_LIMIT')
     if len(TAR_UNZIP_LIMIT) == 0:
@@ -340,6 +359,11 @@ try:
 except KeyError:
     IS_VPS = False
 try:
+    AS_DOCUMENT = getConfig('AS_DOCUMENT')
+    AS_DOCUMENT = AS_DOCUMENT.lower() == 'true'
+except KeyError:
+    AS_DOCUMENT = False
+try:
     RECURSIVE_SEARCH = getConfig('RECURSIVE_SEARCH')
     RECURSIVE_SEARCH = RECURSIVE_SEARCH.lower() == 'true'
 except KeyError:
@@ -408,7 +432,13 @@ if os.path.exists('drive_folder'):
                 INDEX_URLS.append(temp[2])
             except IndexError as e:
                 INDEX_URLS.append(None)
+                
+SEARCH_PLUGINS = os.environ.get('SEARCH_PLUGINS', None)
+if SEARCH_PLUGINS is not None:
+    SEARCH_PLUGINS = json.loads(SEARCH_PLUGINS)
+    qbclient = get_client()
+    qbclient.search_install_plugin(SEARCH_PLUGINS)               
 
-updater = tg.Updater(token=BOT_TOKEN)
+updater = tg.Updater(token=BOT_TOKEN, request_kwargs={'read_timeout': 30, 'connect_timeout': 10})
 bot = updater.bot
 dispatcher = updater.dispatcher

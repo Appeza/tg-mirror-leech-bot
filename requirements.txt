@@ -13,6 +13,7 @@ gunicorn
 js2py
 lk21
 lxml
+pillow
 psutil
 psycopg2-binary
 pybase64
