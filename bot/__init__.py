@@ -112,7 +112,7 @@ SUDO_USERS = set()
 MOD_USERS = set()
 AS_DOC_USERS = set()
 AS_MEDIA_USERS = set()
-EXTENTION_FILTER = set(['.torrent'])
+EXTENTION_FILTER = {'.torrent'}
 LEECH_LOG = set()
 LEECH_LOG_ALT = set()
 MIRROR_LOGS = set()
@@ -179,7 +179,7 @@ try:
     parent_id = getConfig('GDRIVE_FOLDER_ID')
     DOWNLOAD_DIR = getConfig('DOWNLOAD_DIR')
     if not DOWNLOAD_DIR.endswith("/"):
-        DOWNLOAD_DIR = DOWNLOAD_DIR + '/'
+        DOWNLOAD_DIR = f'{DOWNLOAD_DIR}/'
     DOWNLOAD_STATUS_UPDATE_INTERVAL = int(getConfig('DOWNLOAD_STATUS_UPDATE_INTERVAL'))
     OWNER_ID = int(getConfig('OWNER_ID'))
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
@@ -193,7 +193,6 @@ try:
 except KeyError as e:
     AUTO_DELETE_UPLOAD_MESSAGE_DURATION = -1
     LOGGER.warning("AUTO_DELETE_UPLOAD_MESSAGE_DURATION var missing!")
-    pass
 LOGGER.info("Generating BOT_SESSION_STRING")
 app = Client(name='pyrogram', api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH, bot_token=BOT_TOKEN, parse_mode=enums.ParseMode.HTML, no_updates=True)
 

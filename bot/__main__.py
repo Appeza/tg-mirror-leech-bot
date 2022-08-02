@@ -239,7 +239,7 @@ if OWNER_ID:
     except Exception as e:
         LOGGER.warning(e)
 
-help_string = f'''
+help_string = '''
 Hei, Need Help!!
 '''
 help = telegraph.create_page(
@@ -291,8 +291,7 @@ def main():
     bot.set_my_commands(botcmds)
     start_cleanup()
     if INCOMPLETE_TASK_NOTIFIER and DB_URI is not None:
-        notifier_dict = DbManger().get_incomplete_tasks()
-        if notifier_dict:
+        if notifier_dict := DbManger().get_incomplete_tasks():
             for cid, data in notifier_dict.items():
                 if ospath.isfile(".restartmsg"):
                     with open(".restartmsg") as f:
